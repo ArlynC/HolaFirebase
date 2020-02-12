@@ -7,14 +7,12 @@ public class Producto {
 
     public Producto() {
     }
-
-    public Producto(String id, String nombre, String precio) {
-        this.id = id;
+    public Producto(String nombre, String precio) {
         this.nombre = nombre;
         this.precio = precio;
     }
-
-    public Producto(String nombre, String precio) {
+    public Producto(String id, String nombre, String precio) {
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
     }

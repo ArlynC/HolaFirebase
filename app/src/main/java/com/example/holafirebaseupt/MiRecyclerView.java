@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -65,7 +66,7 @@ public class MiRecyclerView extends AppCompatActivity {
     }
     @OnClick(R.id.btnSave)
     public void onViewClicked() {
-        Toast.makeText(this, "Probando boton",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Test",Toast.LENGTH_LONG).show();
         Producto producto = new Producto(etName.getText().toString().trim(),
                 etPrice.getText().toString().trim());
         reference.push().setValue(producto);
@@ -86,15 +87,38 @@ public class MiRecyclerView extends AppCompatActivity {
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Producto producto = dataSnapshot.getValue(Producto.class);
+                producto.setId(dataSnapshot.getKey()); int index=-1;
+                for (Producto prod : misdatos) {
+                    Log.i("iteracion", prod.getId() + " = " + producto.getId());
+                    index++;
+                    if (prod.getId().equals(producto.getId())) {
+                        misdatos.set(index, producto); break;
+                    }
+                }
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Producto producto = dataSnapshot.getValue(Producto.class);
+                producto.setId(dataSnapshot.getKey()); int index=-1;
+                for (Producto prod : misdatos) {
+                    Log.i("iteracion", prod.getId() + " = " + producto.getId());
+                    index++;
+                    if (prod.getId().equals(producto.getId())) {
+                        misdatos.remove(index); break;
+                    }
+                }
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Toast.makeText(MiRecyclerView.this,"Se movio el producto",Toast.LENGTH_LONG).show();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(MiRecyclerView.this,"Transaccion cancelada",Toast.LENGTH_LONG).show();
             }
         });
     }
