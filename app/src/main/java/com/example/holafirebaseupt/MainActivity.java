@@ -1,6 +1,8 @@
 package com.example.holafirebaseupt;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btnmessage)
     public void onViewClicked() {
         reference.setValue(edtmessage.getText().toString().trim());
+    }
+
+    public void boton(View view) {
+        startActivity(new Intent(this,MiRecyclerView.class));
     }
 }
 

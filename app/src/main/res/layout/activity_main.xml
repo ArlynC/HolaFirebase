@@ -23,4 +23,9 @@
         android:layout_height="wrap_content"
         android:text="Enviar"
         android:id="@+id/btnmessage"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recyclerview"
+        android:onClick="boton"/>
 </LinearLayout>
