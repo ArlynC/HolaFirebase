@@ -62,5 +62,13 @@ public class MainActivity extends AppCompatActivity {
     public void boton(View view) {
         startActivity(new Intent(this,MiRecyclerView.class));
     }
+
+    public void registro(View view) {
+        startActivity(new Intent(this,RegistroUsuarios.class));
+    }
+
+    public void login(View view) {
+        startActivity(new Intent(this,MiLogin.class));
+    }
 }
 

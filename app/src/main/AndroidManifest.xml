@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DetalleProducto"></activity>
+        <activity android:name=".RegistroUsuarios" />
+        <activity android:name=".MiLogin" />
         <activity android:name=".MiRecyclerView" />
         <activity android:name=".MainActivity">
             <intent-filter>
