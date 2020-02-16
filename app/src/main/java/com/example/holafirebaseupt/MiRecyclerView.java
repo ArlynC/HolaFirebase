@@ -130,37 +130,17 @@ public class MiRecyclerView extends AppCompatActivity {
 
     public void buscar(View view) {
         String buscar = etName.getText().toString().trim();
-        Query q= reference.orderByChild("nombre").equalTo(buscar);
+        Query q= reference.orderByChild("nombre").equalTo(buscar).limitToFirst(1);
         q.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int cont=0;
-                for(DataSnapshot datasnapshot: dataSnapshot.getChildren()){
-                    cont++;
-                    Toast.makeText(MiRecyclerView.this, "He encontrado "+cont, Toast.LENGTH_LONG).show();
-                 /*  reference.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            Producto producto = dataSnapshot.getValue(Producto.class);
-                            producto.setId(dataSnapshot.getKey());
-                            if (!misdatos.contains(producto)) {
-                                misdatos.add(producto);
-                            }
-                            recyclerView.getAdapter().notifyDataSetChanged();
-                        }
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        }
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                        }
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });*/
+                misdatos.clear();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Producto artist = snapshot.getValue(Producto.class);
+                        misdatos.add(artist);
+                    }
+                    adaptador.notifyDataSetChanged();
                 }
             }
 
