@@ -48,11 +48,6 @@ public class RegistroUsuarios extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         reference = database.getReference(PATH_USUARIO);
         midatos = new ArrayList<>();
-    /*    misdatos.add( new Producto("123", "Camisa", "200"));
-        misdatos.add( new Producto("432", "Polo", "400"));
-        misdatos.add(new Producto("5674", "Jean", "300"));
-        misdatos.add( new Producto("345", "Zapato", "150"));
-        misdatos.add(new Producto("678", "Chompa", "350"));*/
         adaptador = new AdapterUsuario(this,
                 midatos);
         recyclerView.setAdapter(adaptador);

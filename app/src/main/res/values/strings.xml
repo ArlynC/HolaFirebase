@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">HolaFirebaseUpt</string>
+    <!-- Nodos Firebase -->
+    <string name="nodo_usu">USUARIOS</string>
+
+    <!-- Campos de los nodos -->
+    <string name="campo_pass">pass</string>
+    <string name="campo_usu">usu</string>
 </resources>

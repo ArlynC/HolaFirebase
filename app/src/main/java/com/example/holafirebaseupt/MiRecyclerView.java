@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class MiRecyclerView extends AppCompatActivity {
     EditText etPrice;
     @BindView(R.id.btnSave)
     Button btnSave;
+    @BindView(R.id.btnBuscar)
+    Button btnBuscar;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private AdapterProducto adaptador;
@@ -121,5 +126,49 @@ public class MiRecyclerView extends AppCompatActivity {
                 Toast.makeText(MiRecyclerView.this,"Transaccion cancelada",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void buscar(View view) {
+        String buscar = etName.getText().toString().trim();
+        Query q= reference.orderByChild("nombre").equalTo(buscar);
+        q.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int cont=0;
+                for(DataSnapshot datasnapshot: dataSnapshot.getChildren()){
+                    cont++;
+                    Toast.makeText(MiRecyclerView.this, "He encontrado "+cont, Toast.LENGTH_LONG).show();
+                 /*  reference.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            Producto producto = dataSnapshot.getValue(Producto.class);
+                            producto.setId(dataSnapshot.getKey());
+                            if (!misdatos.contains(producto)) {
+                                misdatos.add(producto);
+                            }
+                            recyclerView.getAdapter().notifyDataSetChanged();
+                        }
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        }
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                        }
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });*/
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        etName.setText("");
     }
 }
